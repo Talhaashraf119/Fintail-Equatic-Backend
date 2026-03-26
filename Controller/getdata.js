@@ -1,11 +1,7 @@
-import { database } from "../path/to/your/database.js";  // ← Change path as needed
 import product from "../Model/product.js";
 
 export const getdata = async (req, res) => {
   try {
-    // ←←←← This line is CRITICAL
-    await database();
-
     const result = await product.find();
 
     const updatedResult = result.map((item) => {
