@@ -15,7 +15,7 @@ app.use(cors({
   origin: [
     "http://localhost:5500",
     "http://127.0.0.1:5500",
-    "https://fintail-equatic-backend.vercel.app"
+    "https://fintail-equatic-backend.vercel.app/"
   ],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
