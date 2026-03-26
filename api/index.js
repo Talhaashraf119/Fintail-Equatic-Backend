@@ -25,10 +25,6 @@ app.get("/", (req, res) => {
   res.json({ message: "Backend is working" });
 });
 
-app.get("/test", (req, res) => {
-  res.json({ message: "Test route working" });
-});
-
 app.post(
   "/stripe-webhook",
   bodyParser.raw({ type: "application/json" }),
@@ -36,10 +32,22 @@ app.post(
 );
 
 app.use(express.json());
+
+// connect DB before routes
+app.use(async (req, res, next) => {
+  try {
+    await database();
+    next();
+  } catch (error) {
+    res.status(500).json({
+      message: "Database connection failed",
+      error: error.message
+    });
+  }
+});
+
 app.use(userRoutes);
 app.use(router);
 app.use("/upload", express.static("upload"));
-
-database();
 
 export default app;
