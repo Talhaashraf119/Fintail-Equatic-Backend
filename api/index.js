@@ -12,10 +12,22 @@ dotenv.config();
 const app = express();
 
 app.use(cors({
-  origin: true,
+  origin: [
+    "http://localhost:5500",
+    "http://127.0.0.1:5500",
+    "https://your-frontend.vercel.app"
+  ],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
+
+app.get("/", (req, res) => {
+  res.json({ message: "Backend is working" });
+});
+
+app.get("/test", (req, res) => {
+  res.json({ message: "Test route working" });
+});
 
 app.post(
   "/stripe-webhook",
